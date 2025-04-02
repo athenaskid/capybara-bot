@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "STAGING=true ts-node -r tsconfig-paths/register src/index.ts",
+    "register": "REGISTER=true ts-node -r tsconfig-paths/register -T src/index.ts",
     "start": "ts-node -r tsconfig-paths/register -T src/index.ts"
   },
   "dependencies": {
+    "@discordjs/rest": "^2.4.3",
     "discord.js": "^14.18.0"
   },
   "devDependencies": {

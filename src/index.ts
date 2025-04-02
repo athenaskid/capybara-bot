@@ -8,11 +8,11 @@ if (parseInt(version.slice(1).split('.')[0], 10) < 22) {
 require('dotenv').config();
 
 import { discord } from '@/lib/clients';
-
-console.log(!!discord);
+import { register } from '@/helpers';
+import { onInteractionCreate } from '@/events';
 
 const addEventListeners = async () => {
-  // discord.on('interactionCreate', de.onInteractionCreate.bind(null, state));
+  discord.on('interactionCreate', onInteractionCreate);
 
   console.log('CapybaraBot: Discord.js Event Listeners Added');
 };
@@ -20,5 +20,7 @@ const addEventListeners = async () => {
 const init = async () => {
   await addEventListeners();
 };
+
+if (process.env.REGISTER) register();
 
 init();
