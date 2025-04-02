@@ -1,0 +1,22 @@
+{
+  "name": "capybara-bot",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "repository": "git@github.com:athenaskid/capybara-bot.git",
+  "author": "athenaskid <me@annievo.us>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "STAGING=true ts-node -r tsconfig-paths/register src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register -T src/index.ts"
+  },
+  "dependencies": {
+    "discord.js": "^14.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.17",
+    "dotenv": "^16.4.7",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.2"
+  }
+}
