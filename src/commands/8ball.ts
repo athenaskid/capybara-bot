@@ -34,7 +34,7 @@ export const EightBall = {
     const answer = COPY.FEATURES.EIGHTBALL.RESPONSES[randomNum];
 
     reply({
-      content: `:8ball: says.. ${answer}`,
+      content: `:8ball: says... ${answer}`,
       ephimeral: false,
       interaction: interaction,
     });

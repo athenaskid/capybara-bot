@@ -1,7 +1,7 @@
 import { Routes } from 'discord.js';
 import { REST } from '@discordjs/rest';
 
-import { EightBall } from '@/commands';
+import { CoinFlip, EightBall } from '@/commands';
 
 export const register = (): void => {
   if (!process.env.TOKEN) {
@@ -23,6 +23,7 @@ export const register = (): void => {
 
   // commands ready for production should be added here
   commands.push(EightBall.data.toJSON());
+  commands.push(CoinFlip.data.toJSON());
 
   const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 

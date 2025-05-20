@@ -1,6 +1,10 @@
 export const COPY = {
   DISABLED: 'This command is not enabled in the server.',
   FEATURES: {
+    COINFLIP: {
+      NAME: 'coinflip',
+      DESCRIPTION: 'Flip a coin!',
+    },
     EIGHTBALL: {
       NAME: '8ball',
       DESCRIPTION: 'Play a game of Magic 8-Ball',

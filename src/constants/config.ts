@@ -3,6 +3,9 @@ export const CONFIG = {
     RED: '#ff0055',
   },
   FEATURES: {
+    COINFLIP: {
+      ENABLED: true,
+    },
     EIGHTBALL: {
       ENABLED: true,
     },
