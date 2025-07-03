@@ -7,7 +7,7 @@ if (parseInt(version.slice(1).split('.')[0], 10) < 22) {
 
 require('dotenv').config();
 
-import { discord } from '@/lib/clients';
+import { connectDatabase, discord } from '@/lib/clients';
 import { register } from '@/helpers';
 import { onInteractionCreate } from '@/events';
 
@@ -18,6 +18,7 @@ const addEventListeners = async () => {
 };
 
 const init = async () => {
+  await connectDatabase();
   await addEventListeners();
 };
 
