@@ -12,7 +12,7 @@ export const CoinFlip = {
     if (!CONFIG.FEATURES.COINFLIP.ENABLED) {
       reply({
         content: COPY.DISABLED,
-        ephimeral: true,
+        ephemeral: true,
         interaction: interaction,
       });
       return;
@@ -23,7 +23,7 @@ export const CoinFlip = {
 
     reply({
       content: `You got... ${result}!`,
-      ephimeral: false,
+      ephemeral: false,
       interaction: interaction,
     });
   },

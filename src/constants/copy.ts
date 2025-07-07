@@ -1,6 +1,16 @@
 export const COPY = {
   DISABLED: 'This command is not enabled in the server.',
   FEATURES: {
+    BIRTHDAY: {
+      NAME: 'birthday',
+      DESCRIPTION: 'Add your birthday for a special greeting!',
+      OPTION_MONTH_NAME: 'month',
+      OPTION_MONTH_DESCRIPTION: 'Enter your birth month.',
+      OPTION_DATE_NAME: 'date',
+      OPTION_DATE_DESCRIPTION: 'Enter your birth date.',
+      OPTION_TIMEZONE_NAME: 'timezone',
+      OPTION_TIMEZONE_DESCRIPTION: 'Enter your timezone.',
+    },
     COINFLIP: {
       NAME: 'coinflip',
       DESCRIPTION: 'Flip a coin!',

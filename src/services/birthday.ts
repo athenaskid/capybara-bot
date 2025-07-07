@@ -37,9 +37,10 @@ export const birthdayService = {
     discord_id: string,
     data: Partial<BirthdayDocument>
   ): Promise<BirthdayDocument | null> => {
+    const now = new Date();
     return await BirthdayModel.findOneAndUpdate(
       { discord_id },
-      { ...data },
+      { ...data, updated_at: now },
       { new: true }
     );
   },

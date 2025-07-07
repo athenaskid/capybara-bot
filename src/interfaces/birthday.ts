@@ -5,4 +5,6 @@ export interface BirthdayDocument extends Document {
   birth_month: number;
   birth_date: number;
   timezone: string;
+  created_at: Date;
+  updated_at: Date;
 }

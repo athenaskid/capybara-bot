@@ -2,6 +2,6 @@ import { CommandInteraction } from 'discord.js';
 
 export interface ReplyProps {
   content: string;
-  ephimeral: boolean;
+  ephemeral: boolean;
   interaction: CommandInteraction;
 }

@@ -11,6 +11,8 @@ const birthdaySchema = new Schema<BirthdayDocument>(
     birth_month: { type: Number, required: true },
     birth_date: { type: Number, required: true },
     timezone: { type: String, required: true },
+    created_at: { type: Date, required: true, default: () => new Date() },
+    updated_at: { type: Date, required: true, default: () => new Date() },
   },
   { collection: MONGODB_BIRTHDAYS, versionKey: false }
 );
