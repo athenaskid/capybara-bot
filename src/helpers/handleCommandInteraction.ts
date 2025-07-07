@@ -1,11 +1,15 @@
-import { CoinFlip, EightBall } from '@/commands';
+import { Birthday, CoinFlip, EightBall } from '@/commands';
 import { COPY } from '@/constants';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 
 export const handleCommandInteraction = async (
-  interaction: CommandInteraction
+  interaction: ChatInputCommandInteraction
 ) => {
   if (interaction.user.bot) return;
+
+  if (interaction.commandName === COPY.FEATURES.BIRTHDAY.NAME) {
+    return Birthday.execute(interaction);
+  }
 
   if (interaction.commandName === COPY.FEATURES.COINFLIP.NAME) {
     return CoinFlip.execute(interaction);

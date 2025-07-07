@@ -13,6 +13,7 @@
   "dependencies": {
     "@discordjs/rest": "^2.5.1",
     "discord.js": "^14.21.0",
+    "moment-timezone": "^0.6.0",
     "mongoose": "^8.16.1"
   },
   "devDependencies": {

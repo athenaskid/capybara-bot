@@ -3,6 +3,9 @@ export const CONFIG = {
     RED: '#ff0055',
   },
   FEATURES: {
+    BIRTHDAY: {
+      ENABLED: true,
+    },
     COINFLIP: {
       ENABLED: true,
     },
