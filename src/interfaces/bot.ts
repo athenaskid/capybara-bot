@@ -4,7 +4,6 @@ export interface LogProps {
   title?: string;
   description: string;
   image?: string;
-  authorIcon?: string;
   thumbnail?: string;
   footer?: string;
 }

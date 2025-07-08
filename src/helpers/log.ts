@@ -10,7 +10,6 @@ export const log = ({
   title,
   description,
   image,
-  authorIcon,
   thumbnail,
   footer,
 }: LogProps) => {
@@ -25,13 +24,6 @@ export const log = ({
       const botEmbed = new EmbedBuilder()
         .setColor(CONFIG.COLORS.RED as ColorResolvable)
         .setDescription(description);
-
-      if (authorIcon) {
-        botEmbed.setAuthor({
-          name: `${server.name} Server`,
-          iconURL: authorIcon || server.iconURL() || '',
-        });
-      }
 
       if (title) botEmbed.setTitle(title);
       if (image) botEmbed.setImage(image);
