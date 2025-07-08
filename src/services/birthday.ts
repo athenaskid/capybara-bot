@@ -43,6 +43,21 @@ export const getBirthday = async (
 };
 
 /**
+ * getBirthdays
+ */
+export const getBirthdays = async (
+  month: number,
+  date: number,
+  timezone: string
+): Promise<BirthdayDocument[] | null> => {
+  return await BirthdayModel.find({
+    birth_month: month,
+    birth_date: date,
+    timezone,
+  });
+};
+
+/**
  * updateBirthday
  */
 export const updateBirthday = async (

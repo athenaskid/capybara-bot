@@ -5,6 +5,7 @@ export const CONFIG = {
   FEATURES: {
     BIRTHDAY: {
       ENABLED: true,
+      CHANNEL: '1333508583882625254',
     },
     COINFLIP: {
       ENABLED: true,
