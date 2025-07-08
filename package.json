@@ -1,6 +1,6 @@
 {
   "name": "capybara-bot",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "main": "index.ts",
   "repository": "git@github.com:athenaskid/capybara-bot.git",
   "author": "athenaskid <me@annievo.us>",
