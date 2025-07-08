@@ -40,7 +40,7 @@ export const announceBirthdays = async () => {
     const month = nowInTZ.month() + 1;
     const date = nowInTZ.date();
 
-    if (nowInTZ.hour() === 21 && nowInTZ.minute() === 11) {
+    if (nowInTZ.hour() === 0 && nowInTZ.minute() === 0) {
       const birthdays = await getBirthdays(month, date, timezone);
 
       if (birthdays) {
