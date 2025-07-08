@@ -11,6 +11,7 @@ const discord = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.MessageContent,
   ],
 });
 
