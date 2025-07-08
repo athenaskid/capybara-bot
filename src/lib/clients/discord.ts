@@ -8,6 +8,7 @@ if (!process.env.TOKEN) {
 const discord = new Client({
   intents: [
     GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.Guilds,
   ],

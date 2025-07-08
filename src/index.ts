@@ -9,12 +9,13 @@ require('dotenv').config();
 import cron from 'node-cron';
 
 import { CONFIG } from '@/constants';
-import { connectDatabase, discord } from '@/lib/clients';
+import { onGuildMemberRemove, onInteractionCreate } from '@/events';
 import { announceBirthdays, register } from '@/helpers';
-import { onInteractionCreate } from '@/events';
+import { connectDatabase, discord } from '@/lib/clients';
 
 const addEventListeners = async () => {
   discord.on('interactionCreate', onInteractionCreate);
+  discord.on('guildMemberRemove', onGuildMemberRemove);
 
   console.log('CapybaraBot: Discord.js Event Listeners Added');
 };
