@@ -1,5 +1,8 @@
 export const COPY = {
   DISABLED: 'This command is not enabled in the server.',
+  EMOJIS: {
+    BALLOONS: '<:capybaraballoons:1363295432884617246>',
+  },
   FEATURES: {
     BIRTHDAY: {
       NAME: 'birthday',
