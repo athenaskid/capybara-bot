@@ -20,6 +20,10 @@ export const CONFIG = {
     EIGHTBALL: {
       ENABLED: true,
     },
+    GAMBLE: {
+      ENABLED: true,
+      WIN_PERCENT: 49,
+    },
     POINTS: {
       ENABLED: true,
     },

@@ -1,5 +1,5 @@
 import {
-  CommandInteraction,
+  ChatInputCommandInteraction,
   SlashCommandBuilder,
   SlashCommandStringOption,
 } from 'discord.js';
@@ -15,9 +15,9 @@ export const EightBall = {
       option
         .setName(COPY.FEATURES.EIGHTBALL.OPTION_NAME)
         .setDescription(COPY.FEATURES.EIGHTBALL.OPTION_DESCRIPTION)
-        .setRequired(true)
+        .setRequired(true),
     ),
-  execute: async (interaction: CommandInteraction) => {
+  execute: async (interaction: ChatInputCommandInteraction) => {
     if (!CONFIG.FEATURES.EIGHTBALL.ENABLED) {
       reply({
         content: COPY.DISABLED,
@@ -28,7 +28,7 @@ export const EightBall = {
     }
 
     const randomNum = Math.floor(
-      Math.random() * COPY.FEATURES.EIGHTBALL.RESPONSES.length
+      Math.random() * COPY.FEATURES.EIGHTBALL.RESPONSES.length,
     );
 
     const answer = COPY.FEATURES.EIGHTBALL.RESPONSES[randomNum];

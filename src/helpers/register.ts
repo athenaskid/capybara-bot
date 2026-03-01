@@ -1,7 +1,7 @@
 import { Routes } from 'discord.js';
 import { REST } from '@discordjs/rest';
 
-import { Birthday, CoinFlip, EightBall, Points } from '@/commands';
+import { Birthday, CoinFlip, EightBall, Gamble, Points } from '@/commands';
 
 export const register = (): void => {
   if (!process.env.TOKEN) {
@@ -25,6 +25,7 @@ export const register = (): void => {
   commands.push(Birthday.data.toJSON());
   commands.push(CoinFlip.data.toJSON());
   commands.push(EightBall.data.toJSON());
+  commands.push(Gamble.data.toJSON());
   commands.push(Points.data.toJSON());
 
   const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);

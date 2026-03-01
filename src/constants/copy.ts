@@ -5,6 +5,8 @@ export const COPY = {
   EMOJIS: {
     BALLOONS: '<:capybaraballoons:1363295432884617246>',
     CURRENCY: ':coin:',
+    GAMBLE_LOST: ':money_with_wings:',
+    GAMBLE_WON: ':moneybag:',
   },
   FEATURES: {
     BIRTHDAY: {
@@ -48,6 +50,12 @@ export const COPY = {
         'Outlook not so good',
         'Very doubtful.',
       ],
+    },
+    GAMBLE: {
+      NAME: 'gamble',
+      DESCRIPTION: `Play your ${CONFIG.CURRENCY.PLURAL} for a chance to double it!`,
+      OPTION_NAME: 'amount',
+      OPTION_DESCRIPTION: 'Enter a specific amount, "all" or "half"',
     },
     POINTS: {
       NAME: 'points',

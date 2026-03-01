@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 import { CONFIG, COPY } from '@/constants';
 import { reply } from '@/helpers';
@@ -8,7 +8,7 @@ export const CoinFlip = {
   data: new SlashCommandBuilder()
     .setName(COPY.FEATURES.COINFLIP.NAME)
     .setDescription(COPY.FEATURES.COINFLIP.DESCRIPTION),
-  execute: async (interaction: CommandInteraction) => {
+  execute: async (interaction: ChatInputCommandInteraction) => {
     if (!CONFIG.FEATURES.COINFLIP.ENABLED) {
       reply({
         content: COPY.DISABLED,

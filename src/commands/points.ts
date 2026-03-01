@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 import { CONFIG, COPY } from '@/constants';
 import { reply } from '@/helpers';
@@ -8,7 +8,10 @@ export const Points = {
   data: new SlashCommandBuilder()
     .setName(COPY.FEATURES.POINTS.NAME)
     .setDescription(COPY.FEATURES.POINTS.DESCRIPTION),
-  execute: async (interaction: CommandInteraction, user: UserDocument) => {
+  execute: async (
+    interaction: ChatInputCommandInteraction,
+    user: UserDocument,
+  ) => {
     if (!CONFIG.FEATURES.POINTS.ENABLED) {
       reply({
         content: COPY.DISABLED,
