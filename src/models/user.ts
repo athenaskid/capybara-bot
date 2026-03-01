@@ -9,7 +9,7 @@ const userSchema = new Schema<UserDocument>(
   {
     discord_id: { type: String, required: true, unique: true },
     discord_username: { type: String, required: true },
-    points: { type: Number, required: true, default: 500 },
+    points: { type: Number, required: true, default: 0 },
   },
   { collection: MONGODB_USERS, versionKey: false },
 );

@@ -33,12 +33,16 @@ export const getUser = async (
  * updateUser
  */
 export const updateUser = async (
-  discord_id: string,
-  points: number,
+  user: Partial<UserDocument>,
 ): Promise<UserDocument | null> => {
   return await UserModel.findOneAndUpdate(
-    { discord_id },
-    { $inc: { points } },
-    { new: true },
+    { discord_id: user.discord_id },
+    {
+      $inc: { points: user.points },
+      $setOnInsert: {
+        discord_username: user.discord_username,
+      },
+    },
+    { new: true, upsert: true },
   );
 };
