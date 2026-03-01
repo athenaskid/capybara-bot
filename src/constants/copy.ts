@@ -1,7 +1,10 @@
+import { CONFIG } from './config';
+
 export const COPY = {
   DISABLED: 'This command is not enabled in the server.',
   EMOJIS: {
     BALLOONS: '<:capybaraballoons:1363295432884617246>',
+    CURRENCY: ':coin:',
   },
   FEATURES: {
     BIRTHDAY: {
@@ -45,6 +48,10 @@ export const COPY = {
         'Outlook not so good',
         'Very doubtful.',
       ],
+    },
+    POINTS: {
+      NAME: 'points',
+      DESCRIPTION: `Display the amount of ${CONFIG.CURRENCY.PLURAL} you have.`,
     },
   },
   TIMEZONES: [

@@ -1,7 +1,7 @@
 import { Routes } from 'discord.js';
 import { REST } from '@discordjs/rest';
 
-import { Birthday, CoinFlip, EightBall } from '@/commands';
+import { Birthday, CoinFlip, EightBall, Points } from '@/commands';
 
 export const register = (): void => {
   if (!process.env.TOKEN) {
@@ -25,6 +25,7 @@ export const register = (): void => {
   commands.push(Birthday.data.toJSON());
   commands.push(CoinFlip.data.toJSON());
   commands.push(EightBall.data.toJSON());
+  commands.push(Points.data.toJSON());
 
   const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
@@ -33,9 +34,9 @@ export const register = (): void => {
       .put(
         Routes.applicationGuildCommands(
           process.env.CLIENT_ID,
-          process.env.SERVER_ID
+          process.env.SERVER_ID,
         ),
-        { body: commands }
+        { body: commands },
       )
       .then(_data => console.log('Discord PROD Commands Registered'))
       .catch(console.error);
