@@ -15,7 +15,7 @@ const discord = new Client({
   ],
 });
 
-discord.on('ready', () => {
+discord.on('clientReady', () => {
   console.log('CapybaraBot: Discord.js Connected');
 
   discord.user?.setActivity({
