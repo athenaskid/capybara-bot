@@ -14,6 +14,7 @@ import {
   onGuildMemberAdd,
   onGuildMemberRemove,
   onInteractionCreate,
+  onMessageCreate,
   onMessageDelete,
 } from '@/events';
 
@@ -24,6 +25,7 @@ const addEventListeners = async () => {
   discord.on('interactionCreate', onInteractionCreate);
   discord.on('guildMemberAdd', onGuildMemberAdd);
   discord.on('guildMemberRemove', onGuildMemberRemove);
+  discord.on('messageCreate', onMessageCreate);
   discord.on('messageDelete', onMessageDelete);
 
   console.log('CapybaraBot: Discord.js Event Listeners Added');
