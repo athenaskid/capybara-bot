@@ -5,7 +5,7 @@ import { UserModel } from '@/models/user';
  * createUser
  */
 export const createUser = async (
-  payload: UserDocument,
+  payload: Partial<UserDocument>,
 ): Promise<UserDocument> => {
   const user = new UserModel(payload);
   return user.save();
@@ -18,6 +18,22 @@ export const deleteUser = async (
   discord_id: string,
 ): Promise<UserDocument | null> => {
   return await UserModel.findOneAndDelete({ discord_id });
+};
+
+/**
+ * findOrCreateUser
+ */
+export const findOrCreateUser = async (
+  discord_id: string,
+  discord_username: string,
+): Promise<UserDocument> => {
+  const user = await getUser(discord_id);
+  if (user) return user;
+
+  return createUser({
+    discord_id,
+    discord_username,
+  });
 };
 
 /**
@@ -43,6 +59,6 @@ export const updateUser = async (
         discord_username: user.discord_username,
       },
     },
-    { new: true, upsert: true },
+    { returnDocument: 'after', upsert: true },
   );
 };

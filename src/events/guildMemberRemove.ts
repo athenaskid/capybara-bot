@@ -2,11 +2,13 @@ import { GuildMember, PartialGuildMember } from 'discord.js';
 
 import { log } from '@/helpers';
 import { deleteBirthday } from '@/services/birthday';
+import { deleteUser } from '@/services/user';
 
 export const onGuildMemberRemove = async (
-  member: GuildMember | PartialGuildMember
+  member: GuildMember | PartialGuildMember,
 ) => {
   await deleteBirthday(member.id);
+  await deleteUser(member.id);
 
   log({
     title: `Member Leave: ${member.user.username} aka ${member.displayName}`,
