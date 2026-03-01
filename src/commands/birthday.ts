@@ -9,14 +9,13 @@ import moment from 'moment-timezone';
 
 import { CONFIG, COPY } from '@/constants';
 import { reply } from '@/helpers';
+import { isValidMonthDay } from '@/lib/utils';
 
 import {
   createBirthday,
   getBirthday,
   updateBirthday,
 } from '@/services/birthday';
-
-import { isValidMonthDay } from '@/lib/utils/isValidMonthDay';
 
 const months = Array.from({ length: 12 }, (_, i) => ({
   name: new Date(0, i).toLocaleString('default', { month: 'long' }),
@@ -46,20 +45,20 @@ export const Birthday = {
         .setName(COPY.FEATURES.BIRTHDAY.OPTION_MONTH_NAME)
         .setDescription(COPY.FEATURES.BIRTHDAY.OPTION_MONTH_DESCRIPTION)
         .setRequired(true)
-        .addChoices(months)
+        .addChoices(months),
     )
     .addNumberOption((option: SlashCommandNumberOption) =>
       option
         .setName(COPY.FEATURES.BIRTHDAY.OPTION_DATE_NAME)
         .setDescription(COPY.FEATURES.BIRTHDAY.OPTION_DATE_DESCRIPTION)
-        .setRequired(true)
+        .setRequired(true),
     )
     .addStringOption((option: SlashCommandStringOption) =>
       option
         .setName(COPY.FEATURES.BIRTHDAY.OPTION_TIMEZONE_NAME)
         .setDescription(COPY.FEATURES.BIRTHDAY.OPTION_TIMEZONE_DESCRIPTION)
         .setRequired(true)
-        .addChoices(timezones)
+        .addChoices(timezones),
     ),
   execute: async (interaction: ChatInputCommandInteraction) => {
     if (!CONFIG.FEATURES.BIRTHDAY.ENABLED) {
@@ -72,15 +71,15 @@ export const Birthday = {
     }
 
     const selectedMonth = interaction.options.getNumber(
-      COPY.FEATURES.BIRTHDAY.OPTION_MONTH_NAME
+      COPY.FEATURES.BIRTHDAY.OPTION_MONTH_NAME,
     );
 
     const selectedDate = interaction.options.getNumber(
-      COPY.FEATURES.BIRTHDAY.OPTION_DATE_NAME
+      COPY.FEATURES.BIRTHDAY.OPTION_DATE_NAME,
     );
 
     const selectedTimezone = interaction.options.getString(
-      COPY.FEATURES.BIRTHDAY.OPTION_TIMEZONE_NAME
+      COPY.FEATURES.BIRTHDAY.OPTION_TIMEZONE_NAME,
     );
 
     if (!isValidMonthDay(selectedMonth!, selectedDate!)) {
@@ -101,7 +100,7 @@ export const Birthday = {
 
     const selectedMonthName = new Date(0, selectedMonth! - 1).toLocaleString(
       'default',
-      { month: 'long' }
+      { month: 'long' },
     );
 
     const userBirthday = await getBirthday(interaction.user.id);
