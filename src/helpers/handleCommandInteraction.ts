@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction } from 'discord.js';
 
-import { Birthday, CoinFlip, EightBall, Points } from '@/commands';
+import { Birthday, CoinFlip, EightBall, Gamble, Points } from '@/commands';
 import { COPY } from '@/constants';
 import { findOrCreateUser } from '@/services/user';
 
@@ -19,6 +19,15 @@ export const handleCommandInteraction = async (
 
   if (interaction.commandName === COPY.FEATURES.EIGHTBALL.NAME) {
     return EightBall.execute(interaction);
+  }
+
+  if (interaction.commandName === COPY.FEATURES.GAMBLE.NAME) {
+    const user = await findOrCreateUser(
+      interaction.user.id,
+      interaction.user.username,
+    );
+
+    return Gamble.execute(interaction, user);
   }
 
   if (interaction.commandName === COPY.FEATURES.POINTS.NAME) {
