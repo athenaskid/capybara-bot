@@ -4,7 +4,7 @@ import { CONFIG } from '@/constants';
 import { LogProps } from '@/interfaces/bot';
 
 import { discord } from '@/lib/clients';
-import { getENV } from '@/lib/configs';
+import { env } from '@/lib/configs';
 
 export const log = ({
   title,
@@ -13,9 +13,7 @@ export const log = ({
   thumbnail,
   footer,
 }: LogProps) => {
-  const { SERVER_ID } = getENV();
-
-  const server = discord.guilds.cache.get(SERVER_ID);
+  const server = discord.guilds.cache.get(env.SERVER_ID);
 
   if (server && server.available) {
     const channel = server.channels.cache.get(CONFIG.LOGS.CHANNEL);

@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 
-import { getENV } from '@/lib/configs';
+import { env } from '@/lib/configs';
 import { updateUser } from '@/services/user';
 
 export const onMessageCreate = async (message: Message) => {
@@ -10,9 +10,7 @@ export const onMessageCreate = async (message: Message) => {
   if (!message.channel.isTextBased()) return;
   if (!message.member) return;
 
-  const { SERVER_ID } = getENV();
-
-  if (message.guild.id !== SERVER_ID) return;
+  if (message.guild.id !== env.SERVER_ID) return;
 
   const words = message.content.split(/ +/g);
   const wordRegex = new RegExp('[A-Za-z].{2,}');

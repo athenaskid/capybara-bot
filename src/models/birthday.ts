@@ -1,9 +1,7 @@
 import { model, models, Schema } from 'mongoose';
 
 import { Birthday } from '@/interfaces/birthday';
-import { getENV } from '@/lib/configs';
-
-const { MONGODB_BIRTHDAYS } = getENV();
+import { env } from '@/lib/configs';
 
 const birthdaySchema = new Schema<Birthday>(
   {
@@ -14,7 +12,7 @@ const birthdaySchema = new Schema<Birthday>(
     created_at: { type: Date, required: true },
     updated_at: { type: Date, required: true },
   },
-  { collection: MONGODB_BIRTHDAYS, versionKey: false }
+  { collection: env.MONGODB_BIRTHDAYS, versionKey: false }
 );
 
 export const BirthdayModel = models.Birthday || model<Birthday>('Birthday', birthdaySchema);

@@ -2,13 +2,11 @@ import moment from 'moment-timezone';
 
 import { CONFIG, COPY } from '@/constants';
 import { discord } from '@/lib/clients';
-import { getENV } from '@/lib/configs';
+import { env } from '@/lib/configs';
 import { getBirthdays } from '@/services/birthday';
 
 const sendGreetings = async (celebrants: string[]) => {
-  const { SERVER_ID } = getENV();
-
-  const server = discord.guilds.cache.get(SERVER_ID);
+  const server = discord.guilds.cache.get(env.SERVER_ID);
   if (!server || !server.available) return;
 
   const channel = server.channels.cache.get(CONFIG.FEATURES.BIRTHDAY.CHANNEL);

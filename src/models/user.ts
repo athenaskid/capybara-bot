@@ -1,9 +1,7 @@
 import { model, models, Schema } from 'mongoose';
 
 import { User } from '@/interfaces/user';
-import { getENV } from '@/lib/configs';
-
-const { MONGODB_USERS } = getENV();
+import { env } from '@/lib/configs';
 
 const userSchema = new Schema<User>(
   {
@@ -11,7 +9,7 @@ const userSchema = new Schema<User>(
     discord_username: { type: String, required: true },
     points: { type: Number, required: true, default: 0 },
   },
-  { collection: MONGODB_USERS, versionKey: false },
+  { collection: env.MONGODB_USERS, versionKey: false },
 );
 
 export const UserModel = models.User || model<User>('User', userSchema);
