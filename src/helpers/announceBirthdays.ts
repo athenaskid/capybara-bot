@@ -12,42 +12,26 @@ const sendGreetings = async (celebrants: string[]) => {
   const channel = server.channels.cache.get(CONFIG.FEATURES.BIRTHDAY.CHANNEL);
   if (!channel || !channel.isTextBased()) return;
 
-  const mentions = [];
-
-  for (const id of celebrants) {
-    try {
-      const user = await discord.users.fetch(id);
-      mentions.push(`<@${user.id}>`);
-    } catch (error) {
-      console.error(`Failed to fetch discord user ${id}:`, error);
-    }
-  }
-
+  const mentions = celebrants.map(id => `<@${id}>`);
   if (mentions.length === 0) return;
 
-  channel.send(
-    `Hello @everyone! Let's wish ${mentions.join(' ')} a happy birthday! ${
-      COPY.EMOJIS.BALLOONS
-    }`
+  await channel.send(
+    `Hello @everyone! Let's wish ${mentions.join(' ')} a happy birthday! ${COPY.EMOJIS.BALLOONS}`
   );
 };
 
 export const announceBirthdays = async () => {
   for (const timezone of COPY.TIMEZONES) {
     const nowInTZ = moment().tz(timezone);
+
+    if (nowInTZ.hour() !== 0 || nowInTZ.minute() !== 0) continue;
+
     const month = nowInTZ.month() + 1;
     const date = nowInTZ.date();
+    const birthdays = await getBirthdays(month, date, timezone);
 
-    if (nowInTZ.hour() === 0 && nowInTZ.minute() === 0) {
-      const birthdays = await getBirthdays(month, date, timezone);
+    if (birthdays.length === 0) continue;
 
-      if (birthdays) {
-        const celebrants = birthdays.map(birthday => {
-          return birthday.discord_id;
-        });
-
-        sendGreetings(celebrants);
-      }
-    }
+    await sendGreetings(birthdays.map(b => b.discord_id));
   }
 };
