@@ -1,11 +1,11 @@
 import { model, models, Schema } from 'mongoose';
 
-import { UserDocument } from '@/interfaces/user';
+import { User } from '@/interfaces/user';
 import { getENV } from '@/lib/configs';
 
 const { MONGODB_USERS } = getENV();
 
-const userSchema = new Schema<UserDocument>(
+const userSchema = new Schema<User>(
   {
     discord_id: { type: String, required: true, unique: true },
     discord_username: { type: String, required: true },
@@ -14,4 +14,4 @@ const userSchema = new Schema<UserDocument>(
   { collection: MONGODB_USERS, versionKey: false },
 );
 
-export const UserModel = models.User || model<UserDocument>('User', userSchema);
+export const UserModel = models.User || model<User>('User', userSchema);

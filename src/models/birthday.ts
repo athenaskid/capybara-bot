@@ -1,11 +1,11 @@
-import { model, Schema } from 'mongoose';
+import { model, models, Schema } from 'mongoose';
 
-import { BirthdayDocument } from '@/interfaces/birthday';
+import { Birthday } from '@/interfaces/birthday';
 import { getENV } from '@/lib/configs';
 
 const { MONGODB_BIRTHDAYS } = getENV();
 
-const birthdaySchema = new Schema<BirthdayDocument>(
+const birthdaySchema = new Schema<Birthday>(
   {
     discord_id: { type: String, required: true, unique: true },
     birth_month: { type: Number, required: true },
@@ -17,7 +17,4 @@ const birthdaySchema = new Schema<BirthdayDocument>(
   { collection: MONGODB_BIRTHDAYS, versionKey: false }
 );
 
-export const BirthdayModel = model<BirthdayDocument>(
-  'Birthday',
-  birthdaySchema
-);
+export const BirthdayModel = models.Birthday || model<Birthday>('Birthday', birthdaySchema);
