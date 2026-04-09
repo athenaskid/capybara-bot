@@ -1,18 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "node16",
-    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "target": "es2022",
+    "module": "commonjs",
+    "lib": ["es2022"],
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "moduleResolution": "node16",
-    "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
+    "moduleResolution": "node",
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -21,9 +17,8 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": true,
     "ignoreDeprecations": "6.0",
-    "baseUrl": "./",
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"]
     }
