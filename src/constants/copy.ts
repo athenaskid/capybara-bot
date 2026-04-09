@@ -57,6 +57,11 @@ export const COPY = {
       OPTION_NAME: 'amount',
       OPTION_DESCRIPTION: 'Enter a specific amount, "all" or "half"',
     },
+    LEADERBOARD: {
+      NAME: 'leaderboard',
+      DESCRIPTION: 'View the top point holders in the server.',
+      MEDALS: ['🥇', '🥈', '🥉'],
+    },
     BONUS: {
       NAME: 'bonus',
       DESCRIPTION: 'Award bonus points to a user.',

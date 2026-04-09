@@ -13,6 +13,10 @@ export const CONFIG = {
     BONUS: {
       ENABLED: true,
     },
+    LEADERBOARD: {
+      ENABLED: true,
+      LIMIT: 5,
+    },
     BIRTHDAY: {
       ENABLED: true,
       CHANNEL: '1333508583882625254',
