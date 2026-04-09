@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 yarn dev              # Run bot in staging/development mode (uses capybaradb-test)
-yarn dev:register     # Register slash commands with Discord (staging guild)
+yarn register         # Register slash commands with Discord
 yarn start            # Run bot in production mode
 ```
 
@@ -32,16 +32,16 @@ Discord.js v14 bot with MongoDB (Mongoose) for persistence. Entry point is [src/
 
 ### Key Directories
 
-| Path | Purpose |
-|------|---------|
-| `src/commands/` | Slash command definitions (`data` + `execute`) |
-| `src/events/` | Discord.js event handlers (`interactionCreate`, `messageCreate`, etc.) |
-| `src/helpers/` | Shared logic: routing, replies, logging, cron, registration |
-| `src/services/` | Mongoose CRUD operations for each collection |
-| `src/models/` | Mongoose schemas (`user`, `birthday`) |
-| `src/constants/` | Feature flags (`config.ts`), UI copy/emojis/timezones (`copy.ts`) |
-| `src/lib/` | Client initialization (Discord, MongoDB) and env loading |
-| `src/interfaces/` | TypeScript interfaces for shared types |
+| Path              | Purpose                                                                |
+| ----------------- | ---------------------------------------------------------------------- |
+| `src/commands/`   | Slash command definitions (`data` + `execute`)                         |
+| `src/events/`     | Discord.js event handlers (`interactionCreate`, `messageCreate`, etc.) |
+| `src/helpers/`    | Shared logic: routing, replies, logging, cron, registration            |
+| `src/services/`   | Mongoose CRUD operations for each collection                           |
+| `src/models/`     | Mongoose schemas (`user`, `birthday`)                                  |
+| `src/constants/`  | Feature flags (`config.ts`), UI copy/emojis/timezones (`copy.ts`)      |
+| `src/lib/`        | Client initialization (Discord, MongoDB) and env loading               |
+| `src/interfaces/` | TypeScript interfaces for shared types                                 |
 
 ### Points System
 

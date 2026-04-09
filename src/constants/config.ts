@@ -10,6 +10,9 @@ export const CONFIG = {
     CHANNEL: '1392010598274961478',
   },
   FEATURES: {
+    BONUS: {
+      ENABLED: true,
+    },
     BIRTHDAY: {
       ENABLED: true,
       CHANNEL: '1333508583882625254',
