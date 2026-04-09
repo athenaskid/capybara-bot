@@ -20,6 +20,11 @@ const sendGreetings = async (celebrants: string[]) => {
   );
 };
 
+/**
+ * Iterates every configured timezone and, at midnight in that timezone,
+ * fetches matching birthdays and sends a mention to the birthday channel.
+ * Intended to be called on a recurring cron schedule (e.g. every 30 minutes).
+ */
 export const announceBirthdays = async () => {
   for (const timezone of COPY.TIMEZONES) {
     const nowInTZ = moment().tz(timezone);

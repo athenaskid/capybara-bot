@@ -20,6 +20,13 @@ export const getBirthday = async (
   return await BirthdayModel.findOne({ discord_id });
 };
 
+/**
+ * Returns all birthdays matching the exact month, date, and timezone.
+ * Used by the cron job to find celebrants at midnight in each timezone.
+ * @param month - 1-indexed month (1–12).
+ * @param date - Day of the month.
+ * @param timezone - IANA timezone string (e.g. `"America/New_York"`).
+ */
 export const getBirthdays = async (
   month: number,
   date: number,

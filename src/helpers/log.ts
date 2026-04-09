@@ -5,6 +5,10 @@ import { LogProps } from '@/interfaces/bot';
 import { discord } from '@/lib/clients';
 import { env } from '@/lib/configs';
 
+/**
+ * Sends an embed to the configured log channel.
+ * Silently no-ops if the server or channel is unavailable.
+ */
 export const log = ({ title, description, image, thumbnail, footer }: LogProps) => {
   const server = discord.guilds.cache.get(env.SERVER_ID);
   if (!server || !server.available) return;
