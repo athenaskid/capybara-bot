@@ -57,6 +57,14 @@ export const COPY = {
       OPTION_NAME: 'amount',
       OPTION_DESCRIPTION: 'Enter a specific amount, "all" or "half"',
     },
+    BONUS: {
+      NAME: 'bonus',
+      DESCRIPTION: 'Award bonus points to a user.',
+      OPTION_USER_NAME: 'user',
+      OPTION_USER_DESCRIPTION: 'The user to award points to.',
+      OPTION_AMOUNT_NAME: 'amount',
+      OPTION_AMOUNT_DESCRIPTION: 'The number of points to award.',
+    },
     POINTS: {
       NAME: 'points',
       DESCRIPTION: `Display the amount of ${CONFIG.CURRENCY.PLURAL} you have.`,

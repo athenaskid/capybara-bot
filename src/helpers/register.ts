@@ -1,12 +1,13 @@
 import { Routes } from 'discord.js';
 import { REST } from '@discordjs/rest';
 
-import { Birthday, CoinFlip, EightBall, Gamble, Points } from '@/commands';
+import { Birthday, Bonus, CoinFlip, EightBall, Gamble, Points } from '@/commands';
 import { env } from '@/lib/configs';
 
 export const register = (): void => {
   const commands = [
     Birthday.data.toJSON(),
+    Bonus.data.toJSON(),
     CoinFlip.data.toJSON(),
     EightBall.data.toJSON(),
     Gamble.data.toJSON(),
