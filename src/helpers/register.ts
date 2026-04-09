@@ -2,43 +2,22 @@ import { Routes } from 'discord.js';
 import { REST } from '@discordjs/rest';
 
 import { Birthday, CoinFlip, EightBall, Gamble, Points } from '@/commands';
+import { env } from '@/lib/configs';
 
 export const register = (): void => {
-  if (!process.env.TOKEN) {
-    console.error('Error: Discord Register Command Missing Token.');
-    process.exit(1);
-  }
+  const commands = [
+    Birthday.data.toJSON(),
+    CoinFlip.data.toJSON(),
+    EightBall.data.toJSON(),
+    Gamble.data.toJSON(),
+    Points.data.toJSON(),
+  ];
 
-  if (!process.env.CLIENT_ID) {
-    console.error('Error: Discord Register Command Missing Client ID.');
-    process.exit(1);
-  }
-
-  if (!process.env.SERVER_ID) {
-    console.error('Error: Discord Register Command Missing Server ID.');
-    process.exit(1);
-  }
-
-  const commands = [];
-
-  // commands ready for production should be added here
-  commands.push(Birthday.data.toJSON());
-  commands.push(CoinFlip.data.toJSON());
-  commands.push(EightBall.data.toJSON());
-  commands.push(Gamble.data.toJSON());
-  commands.push(Points.data.toJSON());
-
-  const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+  const rest = new REST({ version: '10' }).setToken(env.TOKEN);
 
   if (commands.length > 0)
     rest
-      .put(
-        Routes.applicationGuildCommands(
-          process.env.CLIENT_ID,
-          process.env.SERVER_ID,
-        ),
-        { body: commands },
-      )
+      .put(Routes.applicationGuildCommands(env.CLIENT_ID, env.SERVER_ID), { body: commands })
       .then(_data => console.log('Discord PROD Commands Registered'))
       .catch(console.error);
 };

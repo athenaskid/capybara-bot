@@ -1,10 +1,11 @@
-export const weightedRandom = (toRandomize: Record<string, number>) => {
-  let i,
-    sum = 0,
-    r = Math.random();
-  for (i in toRandomize) {
-    sum += toRandomize[i];
-    if (r <= sum) return i;
+export const weightedRandom = (weights: Record<string, number>): string | null => {
+  const r = Math.random();
+  let sum = 0;
+
+  for (const [key, weight] of Object.entries(weights)) {
+    sum += weight;
+    if (r <= sum) return key;
   }
+
   return null;
 };

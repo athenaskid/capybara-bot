@@ -1,11 +1,9 @@
-import { model, Schema } from 'mongoose';
+import { model, models, Schema } from 'mongoose';
 
-import { BirthdayDocument } from '@/interfaces/birthday';
-import { getENV } from '@/lib/configs';
+import { Birthday } from '@/interfaces/birthday';
+import { env } from '@/lib/configs';
 
-const { MONGODB_BIRTHDAYS } = getENV();
-
-const birthdaySchema = new Schema<BirthdayDocument>(
+const birthdaySchema = new Schema<Birthday>(
   {
     discord_id: { type: String, required: true, unique: true },
     birth_month: { type: Number, required: true },
@@ -14,10 +12,7 @@ const birthdaySchema = new Schema<BirthdayDocument>(
     created_at: { type: Date, required: true },
     updated_at: { type: Date, required: true },
   },
-  { collection: MONGODB_BIRTHDAYS, versionKey: false }
+  { collection: env.MONGODB_BIRTHDAYS, versionKey: false }
 );
 
-export const BirthdayModel = model<BirthdayDocument>(
-  'Birthday',
-  birthdaySchema
-);
+export const BirthdayModel = models.Birthday || model<Birthday>('Birthday', birthdaySchema);

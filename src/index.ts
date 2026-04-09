@@ -19,6 +19,7 @@ import {
 } from '@/events';
 
 import { announceBirthdays, register } from '@/helpers';
+import { env } from '@/lib/configs';
 import { connectDatabase, discord } from '@/lib/clients';
 
 const addEventListeners = async () => {
@@ -47,6 +48,6 @@ const init = async () => {
   await addScheduledTasks();
 };
 
-if (process.env.REGISTER) register();
+if (env.REGISTER) register();
 
 init();

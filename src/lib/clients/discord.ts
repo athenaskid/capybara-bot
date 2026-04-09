@@ -1,9 +1,6 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 
-if (!process.env.TOKEN) {
-  console.error('Error: Discord.js Missing Environment Variables');
-  process.exit(1);
-}
+import { env } from '@/lib/configs';
 
 const discord = new Client({
   intents: [
@@ -19,11 +16,11 @@ discord.on('clientReady', () => {
   console.log('CapybaraBot: Discord.js Connected');
 
   discord.user?.setActivity({
-    name: process.env.STAGING ? 'TEST MODE' : 'with Jensetters',
+    name: env.STAGING ? 'TEST MODE' : 'with Jensetters',
     type: 0,
   });
 });
 
-discord.login(process.env.TOKEN);
+discord.login(env.TOKEN);
 
 export { discord };

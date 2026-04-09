@@ -1,7 +1,9 @@
 import { Message } from 'discord.js';
 
-import { getENV } from '@/lib/configs';
+import { env } from '@/lib/configs';
 import { updateUser } from '@/services/user';
+
+const WORD_REGEX = /[A-Za-z].{2,}/;
 
 export const onMessageCreate = async (message: Message) => {
   if (message.author.bot) return;
@@ -9,26 +11,17 @@ export const onMessageCreate = async (message: Message) => {
   if (!message.guild?.available) return;
   if (!message.channel.isTextBased()) return;
   if (!message.member) return;
-
-  const { SERVER_ID } = getENV();
-
-  if (message.guild.id !== SERVER_ID) return;
+  if (message.guild.id !== env.SERVER_ID) return;
 
   const words = message.content.split(/ +/g);
-  const wordRegex = new RegExp('[A-Za-z].{2,}');
-
-  const isValidMsg =
-    words.length > 2 && words.some(word => wordRegex.test(word));
+  const isValidMsg = words.length > 2 && words.some(word => WORD_REGEX.test(word));
   const isValidAttachment = !!message.attachments.first();
 
-  const incAmount = isValidAttachment ? 2 : 1;
-  const isValid = isValidMsg || isValidAttachment;
-
-  if (!isValid) return;
+  if (!isValidMsg && !isValidAttachment) return;
 
   await updateUser({
     discord_id: message.member.id,
     discord_username: message.author.username,
-    points: incAmount,
+    points: isValidAttachment ? 2 : 1,
   });
 };

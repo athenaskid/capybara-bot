@@ -7,13 +7,12 @@ import { deleteUser } from '@/services/user';
 export const onGuildMemberRemove = async (
   member: GuildMember | PartialGuildMember,
 ) => {
-  await deleteBirthday(member.id);
-  await deleteUser(member.id);
+  await Promise.all([deleteBirthday(member.id), deleteUser(member.id)]);
 
   log({
-    title: `Member Leave: ${member.user.username} aka ${member.displayName}`,
+    title: `Member Leave: ${member.user?.username} aka ${member.displayName}`,
     description: 'Member has left or has been kicked from the server.',
-    thumbnail: member.displayAvatarURL() || undefined,
+    thumbnail: member.displayAvatarURL(),
     footer: `Discord User ID: ${member.id}`,
   });
 };

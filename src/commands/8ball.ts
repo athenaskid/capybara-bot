@@ -1,8 +1,4 @@
-import {
-  ChatInputCommandInteraction,
-  SlashCommandBuilder,
-  SlashCommandStringOption,
-} from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 import { CONFIG, COPY } from '@/constants';
 import { reply } from '@/helpers';
@@ -11,7 +7,7 @@ export const EightBall = {
   data: new SlashCommandBuilder()
     .setName(COPY.FEATURES.EIGHTBALL.NAME)
     .setDescription(COPY.FEATURES.EIGHTBALL.DESCRIPTION)
-    .addStringOption((option: SlashCommandStringOption) =>
+    .addStringOption(option =>
       option
         .setName(COPY.FEATURES.EIGHTBALL.OPTION_NAME)
         .setDescription(COPY.FEATURES.EIGHTBALL.OPTION_DESCRIPTION)
@@ -19,24 +15,13 @@ export const EightBall = {
     ),
   execute: async (interaction: ChatInputCommandInteraction) => {
     if (!CONFIG.FEATURES.EIGHTBALL.ENABLED) {
-      reply({
-        content: COPY.DISABLED,
-        ephemeral: true,
-        interaction: interaction,
-      });
+      await reply({ content: COPY.DISABLED, ephemeral: true, interaction });
       return;
     }
 
-    const randomNum = Math.floor(
-      Math.random() * COPY.FEATURES.EIGHTBALL.RESPONSES.length,
-    );
+    const responses = COPY.FEATURES.EIGHTBALL.RESPONSES;
+    const answer = responses[Math.floor(Math.random() * responses.length)];
 
-    const answer = COPY.FEATURES.EIGHTBALL.RESPONSES[randomNum];
-
-    reply({
-      content: `:8ball: says... ${answer}`,
-      ephemeral: false,
-      interaction: interaction,
-    });
+    await reply({ content: `:8ball: says... ${answer}`, ephemeral: false, interaction });
   },
 };

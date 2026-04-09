@@ -1,7 +1,9 @@
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
-export interface UserDocument extends Document {
+export interface User {
   discord_id: string;
   discord_username: string;
   points: number;
 }
+
+export type UserDocument = HydratedDocument<User>;

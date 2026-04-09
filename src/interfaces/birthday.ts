@@ -1,6 +1,6 @@
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
-export interface BirthdayDocument extends Document {
+export interface Birthday {
   discord_id: string;
   birth_month: number;
   birth_date: number;
@@ -8,3 +8,5 @@ export interface BirthdayDocument extends Document {
   created_at: Date;
   updated_at: Date;
 }
+
+export type BirthdayDocument = HydratedDocument<Birthday>;

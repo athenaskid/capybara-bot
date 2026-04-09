@@ -9,33 +9,24 @@ export const handleCommandInteraction = async (
 ) => {
   if (interaction.user.bot) return;
 
-  if (interaction.commandName === COPY.FEATURES.BIRTHDAY.NAME) {
-    return Birthday.execute(interaction);
-  }
+  switch (interaction.commandName) {
+    case COPY.FEATURES.BIRTHDAY.NAME:
+      return Birthday.execute(interaction);
 
-  if (interaction.commandName === COPY.FEATURES.COINFLIP.NAME) {
-    return CoinFlip.execute(interaction);
-  }
+    case COPY.FEATURES.COINFLIP.NAME:
+      return CoinFlip.execute(interaction);
 
-  if (interaction.commandName === COPY.FEATURES.EIGHTBALL.NAME) {
-    return EightBall.execute(interaction);
-  }
+    case COPY.FEATURES.EIGHTBALL.NAME:
+      return EightBall.execute(interaction);
 
-  if (interaction.commandName === COPY.FEATURES.GAMBLE.NAME) {
-    const user = await findOrCreateUser(
-      interaction.user.id,
-      interaction.user.username,
-    );
+    case COPY.FEATURES.GAMBLE.NAME: {
+      const user = await findOrCreateUser(interaction.user.id, interaction.user.username);
+      return Gamble.execute(interaction, user);
+    }
 
-    return Gamble.execute(interaction, user);
-  }
-
-  if (interaction.commandName === COPY.FEATURES.POINTS.NAME) {
-    const user = await findOrCreateUser(
-      interaction.user.id,
-      interaction.user.username,
-    );
-
-    return Points.execute(interaction, user);
+    case COPY.FEATURES.POINTS.NAME: {
+      const user = await findOrCreateUser(interaction.user.id, interaction.user.username);
+      return Points.execute(interaction, user);
+    }
   }
 };

@@ -21,40 +21,30 @@ export const Gamble = {
     user: UserDocument,
   ) => {
     if (!CONFIG.FEATURES.GAMBLE.ENABLED) {
-      reply({
-        content: COPY.DISABLED,
-        ephemeral: true,
-        interaction: interaction,
-      });
+      await reply({ content: COPY.DISABLED, ephemeral: true, interaction });
       return;
     }
-
-    const replies = {
-      invalidInput: 'Enter a specific number, "all", or "half".',
-      invalidNegative: `You should gamble at least 1 ${CONFIG.CURRENCY.SINGLE}.`,
-      lostAll: `You lost all of your ${CONFIG.CURRENCY.PLURAL}. ${COPY.EMOJIS.GAMBLE_LOST}`,
-      noPoints: `You have no ${CONFIG.CURRENCY.SINGLE} to gamble.`,
-      notEnough: `You don't have enough ${CONFIG.CURRENCY.PLURAL} to gamble.`,
-    };
 
     if (user.points < 1) {
-      reply({
-        content: replies.noPoints,
-        ephemeral: true,
-        interaction: interaction,
-      });
+      await reply({ content: `You have no ${CONFIG.CURRENCY.SINGLE} to gamble.`, ephemeral: true, interaction });
       return;
     }
 
-    const arg = interaction.options.get('amount')?.value;
-    const amount = typeof arg === 'string' ? parseInt(arg, 10) : 0;
+    const arg = interaction.options.getString(COPY.FEATURES.GAMBLE.OPTION_NAME, true);
+    const amount = parseInt(arg, 10);
 
     if (isNaN(amount) && arg !== 'all' && arg !== 'half') {
-      reply({
-        content: replies.invalidInput,
-        ephemeral: true,
-        interaction: interaction,
-      });
+      await reply({ content: 'Enter a specific number, "all", or "half".', ephemeral: true, interaction });
+      return;
+    }
+
+    if (!isNaN(amount) && amount < 1) {
+      await reply({ content: `You should gamble at least 1 ${CONFIG.CURRENCY.SINGLE}.`, ephemeral: true, interaction });
+      return;
+    }
+
+    if (!isNaN(amount) && amount > user.points) {
+      await reply({ content: `You don't have enough ${CONFIG.CURRENCY.PLURAL} to gamble.`, ephemeral: true, interaction });
       return;
     }
 
@@ -63,89 +53,27 @@ export const Gamble = {
       loss: 1 - CONFIG.FEATURES.GAMBLE.WIN_PERCENT / 100,
     };
 
-    let incAmount = 0;
+    const won = weightedRandom(probability) === 'win';
 
-    const result = weightedRandom(probability);
+    let incAmount: number;
+    let content: string;
 
     if (arg === 'all') {
-      if (result === 'win') {
-        incAmount += user.points;
-
-        reply({
-          content: `You won ${user.points} ${getCurrency(user.points)}! ${
-            COPY.EMOJIS.GAMBLE_WON
-          } Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`,
-          ephemeral: false,
-          interaction: interaction,
-        });
-      } else {
-        incAmount -= user.points;
-
-        reply({
-          content: replies.lostAll,
-          ephemeral: false,
-          interaction: interaction,
-        });
-      }
+      incAmount = won ? user.points : -user.points;
+      content = won
+        ? `You won ${user.points} ${getCurrency(user.points)}! ${COPY.EMOJIS.GAMBLE_WON} Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`
+        : `You lost all of your ${CONFIG.CURRENCY.PLURAL}. ${COPY.EMOJIS.GAMBLE_LOST}`;
     } else if (arg === 'half') {
-      const halfPoints = Math.round(user.points / 2);
-
-      if (result === 'win') {
-        incAmount += halfPoints;
-
-        reply({
-          content: `You won ${halfPoints} ${getCurrency(halfPoints)}! ${
-            COPY.EMOJIS.GAMBLE_WON
-          } Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`,
-          ephemeral: false,
-          interaction: interaction,
-        });
-      } else {
-        incAmount -= halfPoints;
-
-        reply({
-          content: `You lost ${halfPoints} ${getCurrency(halfPoints)}. ${
-            COPY.EMOJIS.GAMBLE_LOST
-          } Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`,
-          ephemeral: false,
-          interaction: interaction,
-        });
-      }
-    } else if (amount < 1) {
-      reply({
-        content: replies.invalidNegative,
-        ephemeral: true,
-        interaction: interaction,
-      });
-    } else if (amount <= user.points) {
-      if (result === 'win') {
-        incAmount += amount;
-
-        reply({
-          content: `You won ${amount} ${getCurrency(amount)}! ${
-            COPY.EMOJIS.GAMBLE_WON
-          } Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`,
-          ephemeral: false,
-          interaction: interaction,
-        });
-      } else {
-        incAmount -= amount;
-
-        reply({
-          content: `You lost ${amount} ${getCurrency(amount)}. ${
-            COPY.EMOJIS.GAMBLE_LOST
-          } Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`,
-          ephemeral: false,
-          interaction: interaction,
-        });
-      }
-    } else if (amount > user.points) {
-      reply({
-        content: replies.notEnough,
-        ephemeral: true,
-        interaction: interaction,
-      });
-      return;
+      const half = Math.round(user.points / 2);
+      incAmount = won ? half : -half;
+      content = won
+        ? `You won ${half} ${getCurrency(half)}! ${COPY.EMOJIS.GAMBLE_WON} Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`
+        : `You lost ${half} ${getCurrency(half)}. ${COPY.EMOJIS.GAMBLE_LOST} Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`;
+    } else {
+      incAmount = won ? amount : -amount;
+      content = won
+        ? `You won ${amount} ${getCurrency(amount)}! ${COPY.EMOJIS.GAMBLE_WON} Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`
+        : `You lost ${amount} ${getCurrency(amount)}. ${COPY.EMOJIS.GAMBLE_LOST} Current balance: ${user.points + incAmount} ${COPY.EMOJIS.CURRENCY}`;
     }
 
     await updateUser({
@@ -154,10 +82,6 @@ export const Gamble = {
       points: incAmount,
     });
 
-    reply({
-      content: `Your current balance is: ${user.points} ${COPY.EMOJIS.CURRENCY}`,
-      ephemeral: false,
-      interaction: interaction,
-    });
+    await reply({ content, ephemeral: false, interaction });
   },
 };
