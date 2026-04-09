@@ -8,7 +8,18 @@
   "scripts": {
     "dev": "STAGING=true ts-node -r tsconfig-paths/register src/index.ts",
     "register": "REGISTER=true STAGING=true ts-node -r tsconfig-paths/register -T src/index.ts",
-    "start": "ts-node -r tsconfig-paths/register -T src/index.ts"
+    "start": "ts-node -r tsconfig-paths/register -T src/index.ts",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "testMatch": ["**/__tests__/**/*.test.ts"],
+    "transform": {
+      "^.+\\.tsx?$": ["ts-jest", { "tsconfig": "tsconfig.test.json" }]
+    }
   },
   "dependencies": {
     "@discordjs/rest": "^2.6.1",
@@ -17,9 +28,12 @@
     "mongoose": "^9.4.1"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.5.2",
     "dotenv": "^17.4.1",
+    "jest": "^30.3.0",
     "node-cron": "^4.2.1",
+    "ts-jest": "^29.4.9",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^6.0.2"
