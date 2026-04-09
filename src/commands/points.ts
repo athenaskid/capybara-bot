@@ -13,18 +13,14 @@ export const Points = {
     user: UserDocument,
   ) => {
     if (!CONFIG.FEATURES.POINTS.ENABLED) {
-      reply({
-        content: COPY.DISABLED,
-        ephemeral: true,
-        interaction: interaction,
-      });
+      await reply({ content: COPY.DISABLED, ephemeral: true, interaction });
       return;
     }
 
-    reply({
+    await reply({
       content: `Your current balance is: ${user.points} ${COPY.EMOJIS.CURRENCY}`,
       ephemeral: false,
-      interaction: interaction,
+      interaction,
     });
   },
 };

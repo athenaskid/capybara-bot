@@ -5,20 +5,19 @@ export const onMessageDelete = async (message: Message | PartialMessage) => {
   let logMessage = `Message Deleted In: ${message.channel}\nAuthor: ${message.author?.username}`;
 
   if (message.cleanContent) {
-    const text = message.cleanContent.length > 0 ? message.cleanContent : null;
-    if (text) logMessage += `\n\nContent: ${text}`;
+    logMessage += `\n\nContent: ${message.cleanContent}`;
   }
 
   if (message.attachments.size > 0) {
     logMessage += `\n\nAttached Files:`;
-    message.attachments.forEach(message => {
-      logMessage += `\n${message.url}`;
+    message.attachments.forEach(attachment => {
+      logMessage += `\n${attachment.url}`;
     });
   }
 
   log({
     description: logMessage,
-    thumbnail: message.author?.displayAvatarURL() || undefined,
+    thumbnail: message.author?.displayAvatarURL(),
     footer: `Discord User ID: ${message.author?.id}\nPosted on ${message.createdAt}`,
   });
 };

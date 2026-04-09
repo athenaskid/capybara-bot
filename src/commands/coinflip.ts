@@ -10,21 +10,11 @@ export const CoinFlip = {
     .setDescription(COPY.FEATURES.COINFLIP.DESCRIPTION),
   execute: async (interaction: ChatInputCommandInteraction) => {
     if (!CONFIG.FEATURES.COINFLIP.ENABLED) {
-      reply({
-        content: COPY.DISABLED,
-        ephemeral: true,
-        interaction: interaction,
-      });
+      await reply({ content: COPY.DISABLED, ephemeral: true, interaction });
       return;
     }
 
-    const probability = { Heads: 0.5, Tails: 0.5 };
-    const result = weightedRandom(probability);
-
-    reply({
-      content: `You got... ${result}!`,
-      ephemeral: false,
-      interaction: interaction,
-    });
+    const result = weightedRandom({ Heads: 0.5, Tails: 0.5 });
+    await reply({ content: `You got... ${result}!`, ephemeral: false, interaction });
   },
 };
