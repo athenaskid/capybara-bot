@@ -30,6 +30,10 @@ export const getUser = async (
   return await UserModel.findOne({ discord_id });
 };
 
+export const getTopUsers = async (limit: number): Promise<UserDocument[]> => {
+  return await UserModel.find().sort({ points: -1 }).limit(limit);
+};
+
 export const updateUser = async (
   user: Partial<User>,
 ): Promise<UserDocument | null> => {
