@@ -33,3 +33,6 @@ node_modules/
 # Mac Files
 .DS_Store
 src/.DS_Store
+
+# Claude Code
+CLAUDE.md

@@ -31,6 +31,10 @@ export const CONFIG = {
       ENABLED: true,
       WIN_PERCENT: 49,
     },
+    LINK_FIXER: {
+      ENABLED: true,
+      DOMAIN: 'fixupx.com',
+    },
     POINTS: {
       ENABLED: true,
     },
