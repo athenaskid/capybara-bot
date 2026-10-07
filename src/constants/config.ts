@@ -33,7 +33,7 @@ export const CONFIG = {
     },
     LINK_FIXER: {
       ENABLED: true,
-      DOMAIN: 'fixupx.com',
+      DOMAIN: 'fixvx.com',
     },
     POINTS: {
       ENABLED: true,
